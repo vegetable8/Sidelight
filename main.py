@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 import subprocess
+from tkinter import font as tkFont  # Import tkFont from tkinter
 
 class Tab1(tk.Frame):
     def __init__(self, master=None):
@@ -105,12 +106,14 @@ class Tab2(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        # Add your layout and buttons for Tab 2 here
-        default_button = tk.Button(self, text="Default Button", command=self.default_action)
-        default_button.pack()
+        button_texts = ["Button 1", "Button 2", "Button 3", "Button 4", "Button 5"]
 
-    def default_action(self):
-        print("Default action for Tab 2")
+        for text in button_texts:
+            button = tk.Button(self, text=text, command=self.dummy_action, width=20, height=5)
+            button.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+
+    def dummy_action(self):
+        print("Button Clicked")
 
 class Tab3(tk.Frame):
     def __init__(self, master=None):
@@ -134,11 +137,28 @@ class HelpTab(tk.Frame):
 
     def create_widgets(self):
         help_text = (
-            "Welcome to the Help tab!\n"
-            "This is where you can provide helpful information or instructions."
+            "Schultz Technology is here to help!\n"
+            "\n"
+            "Experiencing an issue?\n"
+            "\n"
+            "Support@SchultzTechnology.com\n"
+            "(877) 495-6204"
         )
-        label = tk.Label(self, text=help_text, font=("Arial", 14), justify="center")
-        label.pack(pady=20)
+
+        # Create a bold font
+        bold_font = tkFont.Font(family="Arial", size=14, weight="bold")
+
+        # Create a label with bold font for the top line
+        label_top = tk.Label(self, text=help_text.split('\n')[0], font=bold_font, justify="center")
+        label_top.pack(pady=10)
+
+        # Create a label for the rest of the text
+        label = tk.Label(self, text='\n'.join(help_text.split('\n')[1:]), font=("Arial", 14), justify="center")
+        label.pack(pady=10)
+
+        # Create a label for the "NOT FOR PUBLIC USE" text at the bottom
+        not_for_public_label = tk.Label(self, text="NOT FOR PUBLIC USE V1.7", font=("Arial", 10, "italic"), justify="center")
+        not_for_public_label.pack(side="bottom", pady=(0, 10))
 
 # Function to confirm exit with a prompt
 def show_custom_dialog():
